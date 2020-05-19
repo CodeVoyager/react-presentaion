@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React w Domu i Zagrodzie</title>
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+    @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+    @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+    body {
+      font-family: 'Yanone Kaffeesatz', 'Droid Serif';
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Yanone Kaffeesatz';
+      font-weight: normal;
+    }
+
+    .remark-code,
+    .remark-inline-code {
+      font-family: 'Ubuntu Mono';
+    }
+
+    /* Two-column layout */
+    .left-column {
+      color: #777;
+      width: 20%;
+      height: 92%;
+      float: left;
+    }
+
+    .left-column h2:last-of-type,
+    .left-column h3:last-child {
+      color: #000;
+    }
+
+    .right-column {
+      width: 75%;
+      float: right;
+      padding-top: 1em;
+      font-size: 2em;
+    }
+    .right-column .remark-code {
+      font-size: 16px;
+    }
+
+    .grey-out {
+      color: #ababab;
+    }
+
+    .remark-slide-content h1 {
+      font-size: 3em;
+    }
+
+    .remark-slide-content h2 {
+      font-size: 2em;
+    }
+
+    .remark-slide-content h3 {
+      font-size: 1.6em;
+    }
+  </style>
+</head>
+<div id="presentation" style="display: none;">
+  class: center, middle
+
+  # React w Domu i Zagrodzie
+
+  ---
+
+  .left-column[
+  ## Agenda
+  ]
+  .right-column[
+  ### Co to jest React?
+  ### Co to jest Virtual DOM?
+  ### Co to jest Component?
+  ### JSX
+  ### React w przeglądarce
+  ### Model danych
+  ### Ale co z serwerem!?
+  ]
+
+  ---
+
+  class: center, middle
+
+  # Co to jest React?
+
+  ---
+
+  .left-column[
+  ## Co to jest React?
+  ]
+  .right-column[
+  * Open Source product of Facebook Inc.
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest React?
+  ]
+  .right-column[
+  * Open Source product of Facebook Inc.
+  * React to biblioteka a nie framework
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest React?
+  ]
+  .right-column[
+  * Open Source product of Facebook Inc.
+  * React to biblioteka a nie framework (_Learn Once, Write Anywhere_)
+  * MVC
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest React?
+  ]
+  .right-column[
+  * Open Source product of Facebook Inc.
+  * React to biblioteka a nie framework (_Learn Once, Write Anywhere_)
+  * .grey-out[M]V.grey-out[C]
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest React?
+  ]
+  .right-column[
+  * Open Source product of Facebook Inc.
+  * React to biblioteka a nie framework (_Learn Once, Write Anywhere_)
+  * .grey-out[M]V.grey-out[C]
+  * Declarative
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest React?
+  ]
+  .right-column[
+  * Open Source product of Facebook Inc.
+  * React to biblioteka a nie framework (_Learn Once, Write Anywhere_)
+  * .grey-out[M]V.grey-out[C]
+  * Declarative
+  * Component-Based
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest React?
+  ]
+  .right-column[
+  * Open Source product of Facebook Inc.
+  * React to biblioteka a nie framework (_Learn Once, Write Anywhere_)
+  * .grey-out[M]V.grey-out[C]
+  * Declarative
+  * Component-Based
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest React?
+  ]
+  .right-column[
+  * Open Source product of Facebook Inc.
+  * React to biblioteka a nie framework (_Learn Once, Write Anywhere_)
+  * .grey-out[M]V.grey-out[C]
+  * Declarative
+  * Component-Based
+  * Wynikiem działania React'a jest VDOM
+  ]
+
+  ---
+
+  class: center, middle
+
+  # Co to jest Virtual DOM?
+
+  ---
+
+  class: center, middle
+
+  # Co to jest Component?
+
+  ---
+
+  .left-column[
+  ## Co to jest Component?
+  ]
+  .right-column[
+  * Logiczna jednostka interfejsu
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest Component?
+  ]
+  .right-column[
+  * Logiczna jednostka interfejsu
+  * Component zwraca deklarację HTML
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest Component?
+  ]
+  .right-column[
+  * Logiczna jednostka interfejsu
+  * Component zwraca deklarację .grey-out[HTML] VDOM
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest Component?
+  ## Przykłady
+  ]
+  .right-column[]
+
+  ---
+
+  .left-column[
+  ## Co to jest Component?
+  ## Przykłady
+  ]
+  .right-column[
+    ```typescript
+    class Clicker extends React.Component<{}, { isClicked: boolean }> {
+      constructor(props) {
+        super(props);
+        this.state = { isClicked: false };
+      }
+
+      componentDidMount() {
+        document.body.addEventListener("click", this.handleClick.bind(this));
+      }
+
+      handleClick() {
+        this.setState({ isClicked: true });
+      }
+
+      render () {
+        const { isClicked } = this.state;
+
+        return &lt;div className="clicker"&gt;
+          { isClicked ? 'Clicked' : 'Still waiting for that click' }
+        &lt;/div&gt;
+      }
+    }```
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest Component?
+  ## Przykłady
+  ]
+  .right-column[
+    ```typescript
+    class Clicker {
+      constructor() {
+        this.state = { isClicked: false };
+      }
+
+      handleClick = () => {
+        this.setState({ isClicked: true });
+      };
+
+      render() {
+        const { isClicked } = this.state;
+
+        return (
+          &lt;div className="clicker" onClick={this.handleClick}&gt;
+            {isClicked ? "Clicked" : "Still waiting for that click"}
+          &lt;/div&gt;
+        );
+      }
+    }
+    ```
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest Component?
+  ## Przykłady
+  ]
+  .right-column[
+    ```typescript
+    export const Clicker = ({ isClicked }) => (
+      &lt;div className="clicker" onClick={this.handleClick}&gt;
+        {isClicked ? "Clicked" : "Still waiting for that click"}
+      &lt;/div&gt;
+    );
+    ```
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest Component?
+  ## Przykłady
+  ## Component vs Element
+  ]
+  .right-column[
+  * Element to coś co bezpośrednio trafia do DOM
+  ]
+
+  ---
+
+  .left-column[
+  ## Co to jest Component?
+  ## Przykłady
+  ## Component vs Element
+  ]
+  .right-column[
+  * Element to coś co bezpośrednio trafia do DOM
+  * Component zwraca Element(-y)
+  ]
+
+  ---
+
+  class: center, middle
+
+  # JSX
+
+  ---
+
+  .left-column[
+  ## JSX
+  ]
+  .right-column[
+  * JavaScript XML
+  ]
+
+  ---
+
+  .left-column[
+  ## JSX
+  ]
+  .right-column[
+  * JavaScript XML
+  * JSX to Syntax
+  ]
+
+  ---
+
+  .left-column[
+  ## JSX
+  ]
+  .right-column[
+  * JavaScript XML
+  * JSX to Syntax
+  * JSX jest niezależny od Reacta
+  ]
+  ---
+
+  .left-column[
+  ## JSX
+  ]
+  .right-column[
+  * JavaScript XML
+  * JSX to Syntax
+  * JSX jest niezależny od Reacta
+  * JSX nie jest natywnie wspierany przez przeglądarki
+
+  ```typescript
+    export const Clicker = ({ isClicked }) => (
+      &lt;div className="clicker" onClick={this.handleClick}&gt;
+        {isClicked ? "Clicked" : "Still waiting for that click"}
+      &lt;/div&gt;
+    );
+    ```
+  ]
+  ---
+
+  .left-column[
+  ## JSX
+  ]
+  .right-column[
+  * JavaScript XML
+  * JSX to Syntax
+  * JSX jest niezależny od Reacta
+  * JSX nie jest natywnie wspierany przez przeglądarki
+
+  ```typescript
+    export const Clicker = ({ isClicked }) =>
+    React.createElement(
+      "div",
+      { className: "clicker", onClick: this.handleClick },
+      isClicked ? "Clicked" : "Still waiting for that click"
+    );
+  ```
+  ]
+
+  ---
+
+  .left-column[
+  ## JSX
+  ## JSX a Konkurencja
+  ]
+  .right-column[
+  * Wzbogacanie HTML o dyrektywy
+  ]
+
+  ---
+
+  .left-column[
+  ## JSX
+  ## JSX a Konkurencja
+  ]
+  .right-column[
+  * Wzbogacanie HTML o dyrektywy (Konkurencja)
+  * Wzbogacanie JS o HTML (JSX)
+  ]
+
+  ---
+
+  class: center, middle
+
+  # React w przeglądarce
+
+  ---
+
+  .left-column[
+  ## React w przeglądarce
+  ]
+  .right-column[
+  * Do osadzenia aplikacji wymagany jest ReactDOM
+  ]
+
+  ---
+
+  .left-column[
+  ## React w przeglądarce
+  ]
+  .right-column[
+  * Do osadzenia aplikacji wymagany jest ReactDOM
+
+  ```typescript
+  import { render } from "react-dom";
+  import React from "react";
+  import App from "./app";
+
+  render(&lt;App /&gt;, document.getElementById("app"));
+  ```
+  ]
+
+  ---
+
+  .left-column[
+  ## React w przeglądarce
+  ]
+  .right-column[
+  * Do osadzenia aplikacji wymagany jest ReactDOM
+  * ReactDOM odpowiada za naniesie VDOM na DOM
+
+  ```typescript
+  import { render } from "react-dom";
+  import React from "react";
+  import App from "./app";
+
+  render(&lt;App /&gt;, document.getElementById("app"));
+  ```
+  ]
+
+  ---
+
+  .left-column[
+  ## React w przeglądarce
+  ]
+  .right-column[
+  * Do osadzenia aplikacji wymagany jest ReactDOM
+  * ReactDOM odpowiada za naniesie VDOM na DOM (Reconciliation)
+
+  ```typescript
+  import { render } from "react-dom";
+  import React from "react";
+  import App from "./app";
+
+  render(&lt;App /&gt;, document.getElementById("app"));
+  ```
+  ]
+
+  ---
+
+  class: center, middle
+
+  # Model danych
+
+  ---
+
+  .left-column[
+  ## Model danych
+  ]
+  .right-column[
+  * Dane pochodzą z tzw. properties
+
+  ]
+
+  ---
+
+  .left-column[
+  ## Model danych
+  ]
+  .right-column[
+  * Dane pochodzą z tzw. properties
+
+  ```typescript
+  &lt;Clicker isClicked={true} /&gt;
+  ```
+  ]
+
+  ---
+
+  .left-column[
+  ## Model danych
+  ]
+  .right-column[
+  * Dane pochodzą z tzw. properties
+
+  ```typescript
+  &lt;Clicker isClicked={true} /&gt;
+  ```
+
+  ```typescript
+  export const Clicker = ({ isClicked }) => (
+    &lt;div className="clicker" onClick={this.handleClick}&gt;
+      {isClicked ? "Clicked" : "Still waiting for that click"}
+    &lt;/div&gt;
+  );```
+  ]
+
+  ---
+
+  .left-column[
+  ## Model danych
+  ]
+  .right-column[
+  * Dane pochodzą z tzw. properties
+  * Dane pochodzą z stanu własnego componentu
+  ]
+
+  ---
+
+  .left-column[
+  ## Model danych
+  ]
+  .right-column[
+  * Dane pochodzą z tzw. properties
+  * Dane pochodzą z stanu własnego componentu
+
+  ```typescript
+    class Clicker {
+      constructor() {
+        this.state = { isClicked: false };
+      }
+
+      handleClick = () => {
+        this.setState({ isClicked: true });
+      };
+
+      render() {
+        const { isClicked } = this.state;
+
+        return (
+          &lt;div className="clicker" onClick={this.handleClick}&gt;
+            {isClicked ? "Clicked" : "Still waiting for that click"}
+          &lt;/div&gt;
+        );
+      }
+    }
+    ```
+  ]
+
+  ---
+
+  .left-column[
+  ## Model danych
+  ]
+  .right-column[
+  * Dane pochodzą z tzw. properties
+  * Dane pochodzą z stanu własnego componentu
+  * Dane pochodzą z contextu
+  ]
+
+  ---
+
+  .left-column[
+  ## Model danych
+  ]
+  .right-column[
+  * Dane pochodzą z tzw. properties
+  * Dane pochodzą z stanu własnego componentu
+  * Dane pochodzą z contextu
+  * Przepływ danych jest jednokierunkowy
+  ]
+
+  ---
+
+  class: center, middle
+
+  # Ale co z serwerem!?
+
+
+  ---
+
+  .left-column[
+  ## Ale co z serwerem!?
+  ]
+  .right-column[
+  * Render aplikacji po stronie Serwera
+  ]
+
+  ---
+
+  .left-column[
+  ## Ale co z serwerem!?
+  ]
+  .right-column[
+  * Render aplikacji po stronie Serwera
+
+  ```typescript
+  import { renderToString } from "react-dom/server";
+  import React from "react";
+  import App from "./app";
+
+  const body = renderToString(&lt;App /&gt;);
+
+  //... controller
+
+  res.send(pageTemplate(body));```
+  ]
+
+  ---
+
+  .left-column[
+  ## Ale co z serwerem!?
+  ## Dlaczego tak łatwo użyć ponownie kodu aplikacji React
+  ]
+  .right-column[
+  ]
+
+  ---
+
+  .left-column[
+  ## Ale co z serwerem!?
+  ## Dlaczego tak łatwo użyć ponownie kodu aplikacji React
+  ]
+  .right-column[
+  * NodeJS
+  ]
+
+  ---
+
+  .left-column[
+  ## Ale co z serwerem!?
+  ## Dlaczego tak łatwo użyć ponownie kodu aplikacji React
+  ]
+  .right-column[
+  * NodeJS
+  * Kompilatory
+  ]
+
+  ---
+
+  .left-column[
+  ## Ale co z serwerem!?
+  ## Dlaczego tak łatwo użyć ponownie kodu aplikacji React
+  ]
+  .right-column[
+  * NodeJS
+  * Kompilatory (np. Babel)
+  ]
+
+  ---
+
+  class: center, middle
+
+  # Oto był React w pigułce
+</div>
+
+<body>
+  <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+  </script>
+  <script>
+    var slideshow = remark.create({
+      source: document.getElementById('presentation').innerText,
+      highlightStyle: 'github'
+    });
+  </script>
+</body>
+
+</html>
