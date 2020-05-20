@@ -19,6 +19,7 @@
     h3 {
       font-family: 'Yanone Kaffeesatz';
       font-weight: normal;
+      margin: 0.2em;
     }
 
     .remark-code,
@@ -143,19 +144,6 @@
   * React to biblioteka a nie framework (_Learn Once, Write Anywhere_)
   * .grey-out[M]V.grey-out[C]
   * Declarative
-  ]
-
-  ---
-
-  .left-column[
-  ## Co to jest React?
-  ]
-  .right-column[
-  * Open Source product of Facebook Inc.
-  * React to biblioteka a nie framework (_Learn Once, Write Anywhere_)
-  * .grey-out[M]V.grey-out[C]
-  * Declarative
-  * Component-Based
   ]
 
   ---
@@ -427,8 +415,107 @@
   ## JSX a Konkurencja
   ]
   .right-column[
+  * Wzbogacanie HTML o dyrektywy
+
+  ```html
+  &lt;div id="app-3"&gt;
+  *  &lt;span v-if="seen"&gt;Now you see me&lt;/span&gt;
+  &lt;/div&gt;
+  ```
+  ]
+
+  ---
+
+  .left-column[
+  ## JSX
+  ## JSX a Konkurencja
+  ]
+  .right-column[
+  * Wzbogacanie HTML o dyrektywy
+
+  ```html
+  &lt;div id="app-4"&gt;
+    &lt;ol&gt;
+  *   &lt;li v-for="todo in todos"&gt;
+        {{ todo.text }}
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/div&gt;
+  ```
+  ]
+
+  ---
+
+  .left-column[
+  ## JSX
+  ## JSX a Konkurencja
+  ]
+  .right-column[
+  * Wzbogacanie HTML o dyrektywy
+
+  ```html
+  &lt;div id="app-5"&gt;
+    &lt;p&gt;{{ message }}&lt;/p&gt;
+  * &lt;button v-on:click="reverseMessage"&gt;Reverse Message&lt;/button&gt;
+  &lt;/div&gt;
+  ```
+  ]
+
+  ---
+
+  .left-column[
+  ## JSX
+  ## JSX a Konkurencja
+  ]
+  .right-column[
   * Wzbogacanie HTML o dyrektywy (Konkurencja)
   * Wzbogacanie JS o HTML (JSX)
+  ]
+
+  ---
+
+  .left-column[
+  ## JSX
+  ## JSX a Konkurencja
+  ]
+  .right-column[
+  * Wzbogacanie HTML o dyrektywy (Konkurencja)
+  * Wzbogacanie JS o HTML (JSX)
+
+  ```javascript
+  const Doubler = ({ ns }) => (
+    &lt;div className="doubler"&gt;
+      &lt;ul&gt;
+  *     {ns
+  *       .map((x) => x * 2)
+  *       .map((x) => (
+  *         &lt;li key={x}>{x}&lt;/li&gt;
+  *      ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+  ```
+  ]
+  ---
+
+  .left-column[
+  ## JSX
+  ## JSX a Konkurencja
+  ]
+  .right-column[
+  * Wzbogacanie HTML o dyrektywy (Konkurencja)
+  * Wzbogacanie JS o HTML (JSX)
+
+  ```javascript
+  import React from "react";
+  import { notify } from "../notifications/service";
+
+  export const Notifier = ({ user }) => (
+  * &lt;div className="notifier" onClick={() => notify(user)}&gt;
+      Notify your friend!
+    &lt;/div&gt;
+  );
+  ```
   ]
 
   ---
@@ -537,11 +624,11 @@
   * Dane pochodzą z tzw. properties
 
   ```typescript
-  &lt;Clicker isClicked={true} /&gt;
+  *&lt;Clicker isClicked={true} /&gt;
   ```
 
   ```typescript
-  export const Clicker = ({ isClicked }) => (
+  *export const Clicker = ({ isClicked }) => (
     &lt;div className="clicker" onClick={this.handleClick}&gt;
       {isClicked ? "Clicked" : "Still waiting for that click"}
     &lt;/div&gt;
@@ -568,26 +655,26 @@
   * Dane pochodzą z stanu własnego componentu
 
   ```typescript
-    class Clicker {
-      constructor() {
-        this.state = { isClicked: false };
-      }
-
-      handleClick = () => {
-        this.setState({ isClicked: true });
-      };
-
-      render() {
-        const { isClicked } = this.state;
-
-        return (
-          &lt;div className="clicker" onClick={this.handleClick}&gt;
-            {isClicked ? "Clicked" : "Still waiting for that click"}
-          &lt;/div&gt;
-        );
-      }
+  class Clicker {
+    constructor() {
+  *   this.state = { isClicked: false };
     }
-    ```
+
+    handleClick = () => {
+  *   this.setState({ isClicked: true });
+    };
+
+    render() {
+  *   const { isClicked } = this.state;
+
+      return (
+        &lt;div className="clicker" onClick={this.handleClick}&gt;
+          {isClicked ? "Clicked" : "Still waiting for that click"}
+        &lt;/div&gt;
+      );
+    }
+  }
+  ```
   ]
 
   ---
@@ -611,6 +698,27 @@
   * Dane pochodzą z stanu własnego componentu
   * Dane pochodzą z contextu
   * Przepływ danych jest jednokierunkowy
+  ]
+
+  ---
+
+  .left-column[
+  ## Model danych
+  ]
+  .right-column[
+  * Dane pochodzą z tzw. properties
+  * Dane pochodzą z stanu własnego componentu
+  * Dane pochodzą z contextu
+  * Przepływ danych jest jednokierunkowy
+
+  ```
+    (props, state) ===> VDOM ===> (changes)
+        ^^                           ||
+        ||                           ||
+        ||                           ||
+        ||                           ||
+        ==============================
+  ```
   ]
 
   ---
@@ -709,7 +817,8 @@
   <script>
     var slideshow = remark.create({
       source: document.getElementById('presentation').innerText,
-      highlightStyle: 'github'
+      highlightStyle: 'github',
+      highlightLines: true
     });
   </script>
 </body>
