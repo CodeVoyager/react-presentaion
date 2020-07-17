@@ -46,6 +46,12 @@
       padding-top: 1em;
       font-size: 2em;
     }
+    .right-column ul {
+      margin-top: 0;
+    }
+    .right-column img {
+      width: 100%;
+    }
     .right-column .remark-code {
       font-size: 16px;
     }
@@ -64,6 +70,14 @@
 
     .remark-slide-content h3 {
       font-size: 1.6em;
+    }
+
+    .small-text .remark-code {
+      font-size: 13px;
+    }
+
+    .flex {
+      display: flex;
     }
   </style>
 </head>
@@ -544,7 +558,7 @@
   ```typescript
   import { render } from "react-dom";
   import React from "react";
-  import App from "./app";
+  import { App } from "./app";
 
   render(&lt;App /&gt;, document.getElementById("app"));
   ```
@@ -562,7 +576,7 @@
   ```typescript
   import { render } from "react-dom";
   import React from "react";
-  import App from "./app";
+  import { App } from "./app";
 
   render(&lt;App /&gt;, document.getElementById("app"));
   ```
@@ -580,11 +594,224 @@
   ```typescript
   import { render } from "react-dom";
   import React from "react";
-  import App from "./app";
+  import { App } from "./app";
 
   render(&lt;App /&gt;, document.getElementById("app"));
   ```
   ]
+
+  ---
+
+  .left-column[
+  ## React w przeglądarce
+  ]
+  .right-column[
+  * Do osadzenia aplikacji wymagany jest ReactDOM
+  * ReactDOM odpowiada za naniesie VDOM na DOM (Reconciliation)
+
+  .flex[
+
+  .item[VDOM:
+
+  .small-text[
+  ```json
+
+  {
+    "type": "div",
+    "key": null,
+    "ref": null,
+    "props": {
+      "className": "parent",
+      "id": "parent1",
+      "data-user": "admin",
+      "children": {
+        "type": "span",
+        "key": null,
+        "ref": null,
+        "props": {
+          "className": "child",
+          "children": "Content"
+        },
+      }
+    },
+  }
+  ```]]
+
+  .item[DOM:
+
+  ```html
+  &lt;div id="app"&gt;
+  &lt;/div&gt;
+  ```]
+  ]]
+
+  ---
+
+  .left-column[
+  ## React w przeglądarce
+  ]
+  .right-column[
+  * Do osadzenia aplikacji wymagany jest ReactDOM
+  * ReactDOM odpowiada za naniesie VDOM na DOM (Reconciliation)
+
+  .flex[
+
+  .item[VDOM:
+
+  .small-text[
+  ```json
+
+  {
+    "type": "div",
+    "key": null,
+    "ref": null,
+    "props": {
+      "className": "parent",
+      "id": "parent1",
+      "data-user": "admin",
+      "children": {
+        "type": "span",
+        "key": null,
+        "ref": null,
+        "props": {
+          "className": "child",
+          "children": "Content"
+        },
+      }
+    },
+  }
+  ```]]
+
+  .item[DOM:
+
+  ```html
+  &lt;div id="app"&gt;
+    &lt;div
+      className="parent"
+      id="parent1"
+      data-user="admin"
+    &gt;
+      &lt;span
+        className="child"
+      &gt;
+        Content
+      &lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  ```]
+  ]]
+
+  ---
+
+  .left-column[
+  ## React w przeglądarce
+  ]
+  .right-column[
+  * Do osadzenia aplikacji wymagany jest ReactDOM
+  * ReactDOM odpowiada za naniesie VDOM na DOM (Reconciliation)
+
+  .flex[
+
+  .item[VDOM:
+
+  .small-text[
+  ```json
+
+  {
+    "type": "div",
+    "key": null,
+    "ref": null,
+    "props": {
+      "className": "parent",
+      "id": "parent1",
+  *   "data-user": "user",
+      "children": {
+        "type": "span",
+        "key": null,
+        "ref": null,
+        "props": {
+          "className": "child",
+          "children": "Content"
+        },
+      }
+    },
+  }
+  ```]]
+
+  .item[DOM:
+
+  ```html
+  &lt;div id="app"&gt;
+    &lt;div
+      className="parent"
+      id="parent1"
+  *   data-user="admin"
+    &gt;
+      &lt;span
+        className="child"
+      &gt;
+        Content
+      &lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  ```]
+  ]]
+
+  ---
+
+  .left-column[
+  ## React w przeglądarce
+  ]
+  .right-column[
+  * Do osadzenia aplikacji wymagany jest ReactDOM
+  * ReactDOM odpowiada za naniesie VDOM na DOM (Reconciliation)
+
+  .flex[
+
+  .item[VDOM:
+
+  .small-text[
+  ```json
+
+  {
+    "type": "div",
+    "key": null,
+    "ref": null,
+    "props": {
+      "className": "parent",
+      "id": "parent1",
+  *   "data-user": "user",
+      "children": {
+        "type": "span",
+        "key": null,
+        "ref": null,
+        "props": {
+          "className": "child",
+          "children": "Content"
+        },
+      }
+    },
+  }
+  ```]]
+
+  .item[DOM:
+
+  ```html
+  &lt;div id="app"&gt;
+    &lt;div
+      className="parent"
+      id="parent1"
+  *   data-user="user"
+    &gt;
+      &lt;span
+        className="child"
+      &gt;
+        Content
+      &lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  ```]
+  ]]
 
   ---
 
@@ -748,7 +975,8 @@
   ```typescript
   import { renderToString } from "react-dom/server";
   import React from "react";
-  import App from "./app";
+  import { App } from "./app";
+  import { pageTemplate } from "./utils";
 
   const body = renderToString(&lt;App /&gt;);
 
@@ -796,6 +1024,33 @@
   .right-column[
   * NodeJS
   * Kompilatory (np. Babel)
+  ]
+
+  ---
+
+  .left-column[
+  ## Ale co z serwerem!?
+  ## Dlaczego tak łatwo użyć ponownie kodu aplikacji React
+  ]
+  .right-column[
+  * NodeJS
+  * Kompilatory (np. Babel)
+  * Webpack
+  ]
+
+  ---
+
+  .left-column[
+  ## Ale co z serwerem!?
+  ## Dlaczego tak łatwo użyć ponownie kodu aplikacji React
+  ]
+  .right-column[
+  * NodeJS
+  * Kompilatory (np. Babel)
+  * Webpack
+
+
+  ![alt text](webpack.js.org_70dbf849cabe.png "Webpack")
   ]
 
   ---
